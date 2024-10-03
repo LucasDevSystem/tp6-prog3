@@ -110,10 +110,9 @@ public class Arvore {
 
   }
 
-  // int maiorSalto = 0;
 
-  // desce ate os nos folhas e volta ate a raiz contanndo
-  // recursao junto com backtrack
+
+  // desce ate os nos folhas e volta ate a raiz contando  - ignore ideia inicial
   public int contadorAlturaArvoreRecursivo(No no, int saltos) {
     if (no == null) {
       return saltos - 1;
@@ -123,11 +122,9 @@ public class Arvore {
       return saltos;
     }
 
-    // Incrementa os saltos e faz chamadas recursivas para direita e esquerda
     int alturaDireita = contadorAlturaArvoreRecursivo(no.direita, saltos + 1);
     int alturaEsquerda = contadorAlturaArvoreRecursivo(no.esquerda, saltos + 1);
 
-    // Retorna o maior valor entre as alturas das subárvores
     return alturaDireita >= alturaEsquerda ? alturaDireita : alturaEsquerda;
   }
 
@@ -148,11 +145,11 @@ public class Arvore {
       listarNosRecursivo(no.direita, valores);
     }
   }
-
+  // sei que nao e a melhor maneira
   public void removerEReestruturar(int valor) {
     List<Integer> valores = listarNos();
 
-    valores.remove((Integer) valor); 
+    valores.remove( (Integer) valor); 
     raiz = null; 
     for (int val : valores) {
       this.inserir(val);
@@ -164,17 +161,15 @@ public class Arvore {
       return null;
     }
 
-    // Remove nós filhos primeiro, para garantir que a subárvore seja tratada
-    // corretamente
     no.esquerda = removerParesRecursivo(no.esquerda);
     no.direita = removerParesRecursivo(no.direita);
 
-    // Verifica se o valor do nó atual é par
+    // Verifica se o valor do no e par
     if (no.valor % 2 == 0) {
       removerEReestruturar(no.valor);
     }
 
-    return no; // Retorna o nó atualizado
+    return no; 
   }
 
   private No maiorValor(No no) {
@@ -210,11 +205,9 @@ public class Arvore {
     for (int i = valores.size() - 1; i >= 0; i--) {
       valoresEspelhados.add(valores.get(i));
     }
-
-    // 3. Reconstruir a árvore a partir da lista espelhada
-    raiz = null; // Limpa a árvore atual
+    raiz = null;
     for (int val : valoresEspelhados) {
-      this.inserirReverso(val); // Adiciona os valores de volta à árvore
+      this.inserirReverso(val);   
     }
   }
 
@@ -224,12 +217,11 @@ public class Arvore {
       return;
     }
 
-    // Troca as referências dos filhos esquerdo e direito do nó atual
+
     No temp = no.esquerda;
     no.esquerda = no.direita;
     no.direita = temp;
 
-    // Chama recursivamente para espelhar os filhos
     espelharRecursivo(no.esquerda);
     espelharRecursivo(no.direita);
   }
